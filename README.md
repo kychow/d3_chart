@@ -1,4 +1,7 @@
 # Protein Comparison Chart
+
+https://protein-eosin.vercel.app/
+
 A simple chart.js demo written in TS and deployed to vercel. 
 
 ![Screenshot](<assets/screenshot.png>) 
