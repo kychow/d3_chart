@@ -1,3 +1,8 @@
-Protein comparison tool: a typescript example project with chart.js
+# Protein Comparison Chart
+A simple chart.js demo written in TS and deployed to vercel. 
 
-![](<2_15_24.png>)
+![Screenshot](<assets/screenshot.png>) 
+
+This is a purely client-side, single-page application (SPA) that uses chart.js to compare the composition of different protein sources.
+
+![Demo GIF](assets/demo.gif)

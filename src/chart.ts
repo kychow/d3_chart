@@ -11,7 +11,7 @@ interface FoodItem {
   protein: number;
   price: number;
   density: number;
-  type: FoodType; 
+  type: FoodType;
   gramsOfProteinPerDollar?: number;
   percentageCaloriesFromProtein?: number;
 }
@@ -19,7 +19,7 @@ interface FoodItem {
 const mockFoodItems: FoodItem[] = [
   { name: 'Tofu', calories: 70, protein: 8, price: 1.5, density: 0.8, type: 'vegetable-based' },
   { name: 'Protein Powder', calories: 120, protein: 24, price: 2, density: 0.9, type: 'dairy' },
-  { name: 'Shrimp', calories: 99, protein: 24, price: 5, density: 0.5, type: 'meat' },
+  { name: 'Shrimp', calories: 99, protein: 24, price: 5, density: 0.5, type: 'seafood' },
   { name: 'Egg', calories: 155, protein: 13, price: 0.3, density: 1.1, type: 'dairy' },
   { name: 'Scallop', calories: 80, protein: 15, price: 6, density: 0.6, type: 'seafood' },
   { name: 'Seitan', calories: 100, protein: 20, price: 4, density: 1.2, type: 'vegetable-based' },
@@ -58,7 +58,7 @@ const data = {
     borderColor: 'rgba(0, 0, 0, 1)',
     borderWidth: 1,
     type: 'scatter' as ChartType,
-    pointRadius: 4, 
+    pointRadius: 4,
   }))
 };
 
@@ -83,7 +83,7 @@ function getColorForType(type: FoodType): string {
 
 const maxGramsOfProteinPerDollar = Math.max(
   ...mockFoodItems
-    .map(item => item.gramsOfProteinPerDollar) 
+    .map(item => item.gramsOfProteinPerDollar)
     .filter((value): value is number => typeof value === 'number')
 );
 
@@ -91,6 +91,11 @@ const config = {
   type: 'scatter' as ChartType,
   data: data,
   options: {
+    responsive: false, // Prevent resizing
+    title: {
+      display: true,
+      text: 'Protein Comparison Chart' 
+    },
     scales: {
       x: {
         type: 'linear' as 'linear',
@@ -108,7 +113,7 @@ const config = {
           text: 'Grams of Protein per Dollar'
         },
         min: 0,
-        max:  Math.ceil(maxGramsOfProteinPerDollar) 
+        max: Math.ceil(maxGramsOfProteinPerDollar)
       } as ScaleOptions<'linear'>
     },
     plugins: {
@@ -122,9 +127,14 @@ const config = {
       },
       legend: {
         labels: {
-          filter: function(legendItem: { text: string; }, chartData: any) {
+          filter: function (legendItem: { text: string; }, chartData: any) {
             return Object.keys(foodGroups).includes(legendItem.text.replace(' ', '-')); // Filter out non-food group legend items
           }
+        }
+      },
+      elements: {
+        point: {
+          hoverRadius: 0, // Disable hover animation
         }
       }
     }
@@ -134,6 +144,13 @@ const config = {
 function createChart() {
   const ctx = document.getElementById('myChart') as HTMLCanvasElement;
   if (ctx) {
+    // Check if a chart instance already exists and destroy if so
+    const existingChart = Chart.getChart(ctx);
+    if (existingChart) {
+      existingChart.destroy(); 
+    }
+    
+    // Create a new chart instance 
     new Chart(ctx, config);
   }
 }

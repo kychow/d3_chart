@@ -6,7 +6,8 @@ module.exports = {
   entry: './src/chart.ts',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public', 'dist'),
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -27,7 +28,7 @@ module.exports = {
   ],
   devServer: {
     static: {
-        directory: path.join(__dirname, 'dist'),
+        directory: path.join(__dirname, 'public'),
       },
     compress: true,
     port: 8080,
