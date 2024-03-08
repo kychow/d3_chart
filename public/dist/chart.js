@@ -39,7 +39,7 @@ const data = {
         borderColor: 'rgba(0, 0, 0, 1)',
         borderWidth: 1,
         type: 'scatter',
-        pointRadius: 3,
+        pointRadius: 4,
     }))
 };
 function getColorForType(type) {
@@ -67,11 +67,11 @@ const config = {
     type: 'scatter',
     data: data,
     options: {
-        responsive: false, // Prevent resizing
-        title: {
-            display: true,
-            text: 'Protein Comparison Chart'
-        },
+        responsive: true, // Prevent resizing
+        // title: {
+        //   display: true,
+        //   text: 'Protein Comparison Chart' 
+        // },
         scales: {
             x: {
                 type: 'linear',
@@ -124,7 +124,6 @@ function createChart() {
         if (existingChart) {
             existingChart.destroy();
         }
-        // Create a new chart instance 
         new Chart(ctx, config);
     }
 }

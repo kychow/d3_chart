@@ -91,11 +91,7 @@ const config = {
   type: 'scatter' as ChartType,
   data: data,
   options: {
-    responsive: false, // Prevent resizing
-    title: {
-      display: true,
-      text: 'Protein Comparison Chart' 
-    },
+    responsive: true, // Prevent resizing
     scales: {
       x: {
         type: 'linear' as 'linear',
@@ -117,6 +113,20 @@ const config = {
       } as ScaleOptions<'linear'>
     },
     plugins: {
+      title: {
+        display: true,
+        text: 'Protein Comparison Chart',
+        font: {
+          size: 25
+        }
+      },
+      subtitle: {
+        display: true,
+        text: 'Bulking Economically vs. Bulking Heathily',
+        font: {
+          size: 15
+        }
+      },
       tooltip: {
         callbacks: {
           label: (context: any) => {
@@ -147,10 +157,9 @@ function createChart() {
     // Check if a chart instance already exists and destroy if so
     const existingChart = Chart.getChart(ctx);
     if (existingChart) {
-      existingChart.destroy(); 
+      existingChart.destroy();
     }
-    
-    // Create a new chart instance 
+
     new Chart(ctx, config);
   }
 }
